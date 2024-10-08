@@ -13,8 +13,8 @@ y))
 
 (define (inside? x a b)
 (if(and (>= x a) (<= x b))
-1
-0
+#t
+#f
 ))
 
 (inside? 2 1 5) ;1
