@@ -17,6 +17,10 @@ y))
 #f
 ))
 
+;V2
+;(define (inside? x a b)
+;  (and (>= x a) (<= x b)))
+
 (inside? 2 1 5) ;1
 (inside? 2 5 7) ;0
 
@@ -26,6 +30,14 @@ y))
 (define (square a) (* a a))
 
 (define (avg_square a b) (average (square a) (square b)))
+
+;V2
+(define (myfunc a b)
+  (define (sqr a)
+    (* a a))
+  (define (average a b)
+    (/ (+ a b) 2))
+   (average sqr(a) sqr(b)))
 
 (avg_square 1 3) ;5
 (avg_square 5 6) ;61/2
@@ -43,8 +55,34 @@ cur
 )
 )
 
+;V2
+(define (fact-iter n)
+  (define (iter res i)
+    (if (> i n)
+        res
+        (iter (* res i) (+ i 1))
+        )
+    )
+  (iter 1 1)
+ )
+(fact-iter 5)
 
 (define (fib n) (fib_calc 1 1 (- n 1)))
+
+;V2
+(define (fib-iter n)
+  (define (iter prev cur i)
+    (if (>= i n)
+        cur
+        (iter cur (+ cur prev) (+ i 1))
+        )
+    )
+  (iter 1 1 1))
+
+(fib-iter 0)
+(fib-iter 1)
+(fib-iter 2)
+(fib-iter 5)
 
 (fib 0) ;1
 (fib 1) ;1 
