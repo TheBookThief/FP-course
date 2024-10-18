@@ -1,0 +1,69 @@
+#lang racket
+
+(require math/number-theory)
+
+
+; Задача 1. Да се дефинира функция (sum-prime-divisors n),
+; която намира сумата на всички прости делители на едно число n.
+
+; V1
+(define (sum-prime-divisors n)
+  (define (helper d)
+    (cond [(> d n) 0]
+          [(and (prime? d) (= (remainder n d) 0)) (+ d (helper (+ d 1)))]
+          [else (helper (+ d 1))]
+          )
+    )
+  (helper 1)
+  )
+
+; V2 linearly iterative
+
+(define (sum-prime-divisors-2 n)
+  (define (helper d sum)
+    (cond [(> d n) sum]
+          [(and (prime? d) (= (remainder n d) 0)) (helper (+ d 1) (+ sum d))]
+          [else (helper (+ d 1) sum)]
+          )
+    )
+  (helper 1 0)
+  )
+
+(sum-prime-divisors 10)
+(sum-prime-divisors-2 10)
+
+
+; V3 with lists
+(inclusive-range 1 10)
+(define (sum-prime-divisors-map n)
+  (foldl + 0 (filter (lambda (d) (and (= 0 (remainder n d))
+                                 (prime? d)))
+                     (inclusive-range 1 n)))
+  )
+
+(sum-prime-divisors-map 10)
+; Задача 2. Да се дефинира функция (pow x n),
+; която генерира линейно рекурсивен процес и намира x на степен n,
+; където x е реално, а n - естествено число.
+
+(define (pow-r x n)
+  (if (= n 0)
+      1
+      (* x (pow-r x (- n 1)))
+      )
+  )
+(pow-r 2 4)
+
+(define (pow x n)
+  (define (helper it res)
+    (cond [(> it n) res]
+          [else (helper (+ it 1) (* res x))]
+          )
+    )
+  (helper 1 1)
+  )
+(pow 2 4)
+
+
+
+          
