@@ -156,13 +156,20 @@
 (calc-sum 1 5)
 (calc-sum 2 6)
 
+; curry, uncurry
 
+(define (f1 a b c)
+  (* a (+ b c)))
+f1
+((lambda (b c) (f1 10 b c)) 12 15)
 
+((((curry f1) 10) 12) 15)
+(((curry f1) 10 12) 15)
+((curry f1) 10 12 15)
 
-
-
-
-
+(define (count-occurances-3 d n)
+  (length (filter (curry = d) (number->list n))))
+(count-occurances-2 2 122223334)
 
 
 
